@@ -2,6 +2,7 @@ from handlers.base import AppHandler
 from models.user import User
 from models.rawr import Rawr
 from google.appengine.api import memcache
+from google.appengine.ext import db
 import logging
 import time
 
@@ -15,7 +16,7 @@ class HomeHandler(AppHandler):
 		content = self.request.get('content')
 		username = self.request.get('username')
 		if (len(content) > 0) and (len(content) < 257):
-			rawr = Rawr(content=content, user=username)
+			rawr = Rawr(parent=Rawr.rawr_key(), content=content, user=username)
 			rawr.put()
 			self.values['content'] = None
 			self.set_front_page()
@@ -33,3 +34,4 @@ class HomeHandler(AppHandler):
 	def set_front_page(self):
 		logging.error("Running DB Query")
 		memcache.set('front_rawrs', Rawr.all().order('-created').fetch(25))
+

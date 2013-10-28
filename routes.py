@@ -15,8 +15,4 @@ app = webapp2.WSGIApplication([
 	(r'/signup', 'handlers.signup.SignUpHandler'),
 	(r'/login', 'handlers.login.LoginHandler'),
 	(r'/logout', 'handlers.logout.LogoutHandler'),
-	('/([0-9]+)', 'handlers.rawr.RawrHandler'),
-	(r'/flush', 'handlers.flush.FlushHandler'),
-	#(r'/.json', 'handlers.jsonposts.JSONPostsHandler'),
-	#('/([0-9]+).json', 'handlers.jsonpost.JSONPostHandler')
 ], debug=True)
